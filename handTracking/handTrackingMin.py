@@ -35,7 +35,21 @@ while True:
 
     if results.multi_hand_landmarks: # if there is hand/ hands
         for handLms in results.multi_hand_landmarks: #handLms is a single hand
-            mpDraw.draw_landmarks(img, handLms, mpHands.HAND_CONNECTIONS) # we are displaying original hence, draw landmarks on that and not thr RGB image
+            
+            # get info within each hand & landmark info via ID number
+            for id, lm in enumerate(handLms.landmark): #lm is our landmark and id is index number of the finger landmark 0 bottom 4 tip or something
+                #print(id,lm)   
+                h, w, c = img.shape
+                cx, cy = int(lm.x * w), int(lm.y * h) # position of the center
+                print(id, cx,cy) # center for each id
+
+                # to use the cx, cy info 
+                # can also put in a list and use it
+                if id == 4:
+                    cv2.circle(img, (cx,cy), 15, (255, 0, 255), cv2.FILLED)
+
+
+        mpDraw.draw_landmarks(img, handLms, mpHands.HAND_CONNECTIONS) # we are displaying original hence, draw landmarks on that and not thr RGB image
             # .HAND_CONNECTIONS draws the lines connecting them
 
 
@@ -44,10 +58,9 @@ while True:
     fps = 1/(cTime - pTime)
     pTime = cTime
 
-    # to display on the screen
-    # convert into string, position, font, scale, color, thickness
+    # to display text on the screen
     cv2.putText(img, str(int(fps)), (10,70), cv2.FONT_HERSHEY_PLAIN, 3, (255,0,255), 3) 
     
     # To run the webcam we do the below
     cv2.imshow("Image", img)
-    cv2.waitKey(1)
+    cv2.waitKey(1) 
