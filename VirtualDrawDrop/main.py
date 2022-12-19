@@ -28,7 +28,7 @@ while True:
         #if  cx < cursor[0] < 300 and 100 < cursor[1] < 300: 
 
         # with dyanmic values
-        if  cx - w // 2 < cursor[0] < cx + w // 2and \
+        if  cx - w // 2 < cursor[0] < cx + w // 2 and \
             cy - h // 2  < cursor[1] < cy + h // 2:
             colorR = 0, 255, 0 # change the color of rectangle
         else :
